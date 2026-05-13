@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -15,6 +15,14 @@ const labelClass = 'block text-xs font-bold uppercase tracking-widest text-white
 type Stage = 'exchanging' | 'ready' | 'success' | 'error';
 
 export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<p className="text-sm text-white/40 text-center animate-pulse">Verifying reset link…</p>}>
+      <ResetPasswordForm />
+    </Suspense>
+  );
+}
+
+function ResetPasswordForm() {
   const searchParams = useSearchParams();
   const router       = useRouter();
   const supabase     = createClient();
