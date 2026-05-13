@@ -1,0 +1,410 @@
+@import "tailwindcss";
+
+/* ── Keyframes ── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Brand tokens ── */
+:root {
+  --green: #39FF14;
+  --orange: #FF6600;
+  --black: #000000;
+  --surface: #0d0d0d;
+  --surface-2: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.08);
+  --font-display: var(--font-anton);
+}
+
+/* ── Base ── */
+body {
+  background: var(--black);
+  color: #fff;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display), var(--font-geist-sans), Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Mapbox geocoder — dark festival theme ── */
+.mapboxgl-ctrl-geocoder {
+  width: 100% !important;
+  max-width: 100% !important;
+  background-color: rgba(13, 13, 13, 0.92) !important;
+  border: 1px solid rgba(57, 255, 20, 0.25) !important;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.08), 0 4px 24px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 4px !important;
+  backdrop-filter: blur(10px);
+}
+
+.mapboxgl-ctrl-geocoder input[type="text"] {
+  color: #fff !important;
+  background: transparent !important;
+  font-size: 0.875rem !important;
+  letter-spacing: 0.02em;
+}
+
+.mapboxgl-ctrl-geocoder input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon-search {
+  fill: var(--green) !important;
+  opacity: 0.8;
+  top: 11px !important;
+}
+
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon-close {
+  fill: rgba(255, 255, 255, 0.5) !important;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions {
+  background-color: rgba(13, 13, 13, 0.98) !important;
+  border: 1px solid rgba(57, 255, 20, 0.2) !important;
+  border-top: none !important;
+  border-radius: 0 0 4px 4px !important;
+  margin-top: 0 !important;
+  overflow: hidden;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions > li > a {
+  color: rgba(255, 255, 255, 0.85) !important;
+  padding: 10px 16px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.mapboxgl-ctrl-geocoder .suggestions > .active > a,
+.mapboxgl-ctrl-geocoder .suggestions > li > a:hover {
+  background-color: rgba(57, 255, 20, 0.1) !important;
+  color: var(--green) !important;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion-title {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion-address {
+  color: rgba(255, 255, 255, 0.45) !important;
+  font-size: 0.8rem;
+}
+
+/* ── Mapbox nav controls ── */
+.mapboxgl-ctrl-group {
+  background: rgba(13, 13, 13, 0.9) !important;
+  border: 1px solid rgba(57, 255, 20, 0.2) !important;
+  border-radius: 4px !important;
+}
+
+.mapboxgl-ctrl-group button {
+  background: transparent !important;
+}
+
+.mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+  filter: invert(1) brightness(0.7);
+}
+
+.mapboxgl-ctrl-group button:hover .mapboxgl-ctrl-icon {
+  filter: invert(1);
+}
+
+.mapboxgl-ctrl-attrib {
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(255,255,255,0.4) !important;
+  font-size: 10px !important;
+}
+
+.mapboxgl-ctrl-attrib a {
+  color: rgba(255,255,255,0.4) !important;
+}
+
+/* ── Gig markers ─────────────────────────────────────────── */
+.gig-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.gig-marker-pin {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2.5px solid #39FF14;
+  overflow: hidden;
+  background: #0a0a0a;
+  box-shadow: 0 0 14px rgba(57, 255, 20, 0.5), 0 2px 8px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gig-marker:hover .gig-marker-pin {
+  transform: scale(1.12);
+  box-shadow: 0 0 22px rgba(57, 255, 20, 0.75), 0 4px 12px rgba(0,0,0,0.7);
+}
+
+.gig-marker-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gig-marker-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Downward-pointing triangle tail */
+.gig-marker-tail {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #39FF14;
+  filter: drop-shadow(0 2px 4px rgba(57,255,20,0.4));
+  margin-top: -1px;
+}
+
+/* ── Cluster markers ─────────────────────────────────────── */
+.cluster-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cluster-pin {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2.5px solid #39FF14;
+  background: #0a0a0a;
+  box-shadow: 0 0 14px rgba(57, 255, 20, 0.5), 0 2px 8px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cluster-marker:hover .cluster-pin {
+  transform: scale(1.12);
+  box-shadow: 0 0 22px rgba(57, 255, 20, 0.75), 0 4px 12px rgba(0,0,0,0.7);
+}
+
+.cluster-count {
+  font-size: 15px;
+  font-weight: 700;
+  color: #39FF14;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.cluster-tail {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #39FF14;
+  filter: drop-shadow(0 2px 4px rgba(57,255,20,0.4));
+  margin-top: -1px;
+}
+
+/* ── Gig popups ──────────────────────────────────────────── */
+
+/* Override Mapbox default popup chrome */
+.gig-popup-wrapper .mapboxgl-popup-content {
+  background: #0a0a0a !important;
+  border: 1px solid rgba(57, 255, 20, 0.3) !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: 0 0 30px rgba(57,255,20,0.12), 0 8px 32px rgba(0,0,0,0.85) !important;
+  overflow: hidden;
+  min-width: 260px;
+  max-width: 300px;
+}
+
+/* Popup tip (the little arrow) — match border colour */
+.gig-popup-wrapper.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: rgba(57, 255, 20, 0.3) !important;
+}
+.gig-popup-wrapper.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+  border-bottom-color: rgba(57, 255, 20, 0.3) !important;
+}
+.gig-popup-wrapper.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-right-color: rgba(57, 255, 20, 0.3) !important;
+}
+.gig-popup-wrapper.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-left-color: rgba(57, 255, 20, 0.3) !important;
+}
+
+/* Close button */
+.gig-popup-wrapper .mapboxgl-popup-close-button {
+  color: rgba(255,255,255,0.4) !important;
+  font-size: 18px !important;
+  padding: 6px 10px !important;
+  background: transparent !important;
+  top: 0 !important;
+  right: 0 !important;
+}
+.gig-popup-wrapper .mapboxgl-popup-close-button:hover {
+  color: #fff !important;
+  background: rgba(255,255,255,0.06) !important;
+}
+
+/* Inner popup layout */
+.gig-popup {
+  font-family: var(--font-geist-sans, Arial, sans-serif);
+}
+
+.gig-popup-img-wrap {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(57, 255, 20, 0.15);
+}
+
+.gig-popup-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gig-popup-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gig-popup-band-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.gig-popup-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(57,255,20,0.3);
+  flex-shrink: 0;
+}
+
+.gig-popup-avatar--placeholder {
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.gig-popup-band {
+  font-family: var(--font-anton, Arial, sans-serif);
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  margin: 0;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.gig-popup-band:hover {
+  color: #39FF14;
+}
+
+.gig-popup-venue {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+
+.gig-popup-datetime {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  margin: 0;
+}
+
+.gig-popup-genre {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #000;
+  background: #FF6600;
+  padding: 2px 8px;
+  margin-top: 2px;
+  align-self: flex-start;
+}
+
+.gig-popup-desc {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+
+/* Follow / Unfollow button inside popup */
+.gig-follow-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #000;
+  background: #39FF14;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.gig-follow-btn:hover {
+  opacity: 0.85;
+}
+
+.gig-follow-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.gig-follow-btn--active {
+  background: rgba(57, 255, 20, 0.15);
+  color: #39FF14;
+  border: 1px solid rgba(57, 255, 20, 0.4);
+}
+
+/* ── Fan home location marker ─────────────────────────────── */
+.fan-home-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.fan-home-pulse {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #39FF14;
+  box-shadow: 0 0 0 0 rgba(57, 255, 20, 0.6);
+  animation: fan-home-ping 2s ease-out infinite;
+}
+
+@keyframes fan-home-ping {
+  0%   { box-shadow: 0 0 0 0   rgba(57, 255, 20, 0.6); }
+  70%  { box-shadow: 0 0 0 14px rgba(57, 255, 20, 0);  }
+  100% { box-shadow: 0 0 0 0   rgba(57, 255, 20, 0);  }
+}
