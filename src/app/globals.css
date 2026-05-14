@@ -94,6 +94,15 @@ h1, h2, h3 {
 }
 
 /* ── Mapbox nav controls ── */
+
+/* On mobile the filter pill bar sits at bottom-8 (~32px) with ~44px height,
+   so push the zoom/compass controls above it. */
+@media (max-width: 767px) {
+  .mapboxgl-ctrl-bottom-right {
+    bottom: 88px !important;
+  }
+}
+
 .mapboxgl-ctrl-group {
   background: rgba(13, 13, 13, 0.9) !important;
   border: 1px solid rgba(57, 255, 20, 0.2) !important;

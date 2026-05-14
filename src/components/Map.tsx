@@ -739,7 +739,7 @@ export default function Map({ gigs, fanHome, fanFollowedBandIds, isFan, isLogged
       <div ref={mapContainer} className="w-full h-full" />
 
       {/* Map disclaimer */}
-      <p className="absolute top-[60px] left-4 z-10 max-w-[220px] text-[10px] leading-snug pointer-events-none"
+      <p className="absolute top-[80px] md:top-[60px] left-4 z-10 max-w-[220px] text-[10px] leading-snug pointer-events-none"
         style={{ color: 'rgba(255,255,255,0.28)' }}
       >
         Gig locations are approximate. Search the venue name and postcode in Google Maps or Apple Maps for exact directions.
